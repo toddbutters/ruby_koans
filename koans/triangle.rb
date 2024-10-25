@@ -15,6 +15,9 @@
 #
 def triangle(a, b, c)
   sides = { :a => a, :b => b, :c => c }
+  raise TriangleError, "Triangles cannot have negative length sides" if sides.values.min < 0
+  raise TriangleError, "Triangles cannot have 0 length sides" if sides.values.include?(0)
+  raise TriangleError, "The sum of any two sides should be more than the third" if sides.values.sort[0..1].sum <= sides.values.max
   result = :equilateral if sides.values.uniq.count == 1
   result = :isosceles if sides.values.uniq.count == 2
   result = :scalene if sides.values.uniq.count == 3
